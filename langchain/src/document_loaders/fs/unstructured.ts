@@ -44,6 +44,7 @@ type UnstructuredLoaderOptions = {
   apiKey?: string;
   apiUrl?: string;
   strategy?: string;
+  timeout?: number;
 };
 
 type UnstructuredDirectoryLoaderOptions = UnstructuredLoaderOptions & {
@@ -60,6 +61,8 @@ export class UnstructuredLoader extends BaseDocumentLoader {
   private apiKey?: string;
 
   private strategy: string;
+
+  private timeout = 300 * 1000; // 5 minutes
 
   constructor(
     filePathOrLegacyApiUrl: string,
@@ -78,6 +81,7 @@ export class UnstructuredLoader extends BaseDocumentLoader {
       this.apiKey = optionsOrLegacyFilePath.apiKey;
       this.apiUrl = optionsOrLegacyFilePath.apiUrl ?? this.apiUrl;
       this.strategy = optionsOrLegacyFilePath.strategy ?? "hi_res";
+      this.timeout = optionsOrLegacyFilePath.timeout ?? this.timeout;
     }
   }
 
